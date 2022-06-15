@@ -15,8 +15,6 @@ import com.example.feedback.ui.theme.FeedbackTheme
 import com.microsoft.device.dualscreen.windowstate.WindowState
 import com.microsoft.device.dualscreen.windowstate.rememberWindowState
 
-//TODO remember does not work
-
 class MainActivity : ComponentActivity() {
     private lateinit var windowState: WindowState
     override fun onCreate(savedInstanceState: Bundle?) {

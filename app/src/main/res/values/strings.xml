@@ -10,6 +10,7 @@
     <string name="allow">Allow</string>
     <string name="deny">Deny</string>
     <string name="search">Search</string>
+    <string name="skip">Skip</string>
 
     <string name="include_additional">Include additional system diagnostic data and content</string>
     <string name="give_feedback_nav">Give new feedback to Microsoft</string>
