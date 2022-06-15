@@ -16,5 +16,13 @@ val Typography = Typography(
         fontWeight = FontWeight.W500,
         fontSize = 16.sp,
     ),
+    subtitle2 = TextStyle(
+        fontWeight = FontWeight.W300,
+        fontSize = 14.sp,
+    ),
+    h2 = TextStyle(
+        fontWeight = FontWeight.W500,
+        fontSize = 20.sp,
+    ),
 
     )

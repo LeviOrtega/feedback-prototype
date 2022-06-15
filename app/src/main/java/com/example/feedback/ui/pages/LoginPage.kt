@@ -3,27 +3,46 @@ package com.example.feedback.ui.pages
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.BottomNavigation
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.feedback.R
 import com.example.feedback.ui.theme.FeedbackTheme
+import kotlin.math.sign
+
+var signedInBefore: Boolean by (mutableStateOf(true))
 
 @Composable
 fun LoginPage() {
+
     Scaffold(
         content = { LoginContent() },
         bottomBar = { LoginBottomBar() }
@@ -32,38 +51,152 @@ fun LoginPage() {
 
 @Composable
 fun LoginContent() {
-    Column(horizontalAlignment = Alignment.CenterHorizontally){
-        LoginLogos()
-        AppDescription()
-    }
-}
-
-@Composable
-fun LoginBottomBar() {
-    BottomNavigation(elevation = 10.dp, backgroundColor = Color.Transparent) {
-        OutlinedButton(
-            onClick = {/*TODO navigate to FRE*/ },
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
-            border = BorderStroke(1.dp, MaterialTheme.colors.onBackground)
+    Box(Modifier.fillMaxSize()) {
+        Column(
+            Modifier
+                .align(Alignment.TopCenter)
+                .padding(top = 100.dp)
         ) {
-            Text(stringResource(id = R.string.skip), modifier = Modifier)
+            LoginLogos(Modifier.fillMaxWidth())
+            AppDescription(Modifier.fillMaxWidth())
         }
     }
 }
 
+//TODO remove skip changing signed in before, I did this to test the different looks so remove once navigation begins
 
 @Composable
-fun LoginLogos() {
+fun LoginBottomBar() {
+    Column {
+        if (signedInBefore) {
+            LoginSignInChoices(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 10.dp, end = 10.dp)
+            )
+        } else {
+            LoginSignInButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 10.dp, end = 10.dp)
+            )
+        }
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Divider(
+            color = MaterialTheme.colors.surface,
+            modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
+        )
+
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .padding(bottom = 15.dp, start = 10.dp, end = 10.dp)
+        ) {
+            OutlinedButton(
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .width(70.dp)
+                    .height(40.dp),
+                onClick = {/*TODO navigate to FRE*/ signedInBefore = !signedInBefore },
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+                border = BorderStroke(1.dp, MaterialTheme.colors.onBackground)
+            ) {
+                Text(stringResource(id = R.string.skip))
+            }
+        }
+    }
+}
+
+@Composable
+fun LoginSignInChoices(modifier: Modifier = Modifier) {
+    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Button(
+            modifier = modifier,
+            onClick = { /*TODO Sign in*/ },
+            colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+        ) {
+            Box(Modifier.fillMaxWidth()) {
+                Row(
+                    modifier = Modifier.align(Alignment.CenterStart),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    PersonIcon(
+                        bgColor = MaterialTheme.colors.onBackground,
+                        iconColor = MaterialTheme.colors.primary
+                    )
+                    Text(
+                        stringResource(id = R.string.placeholder_email),
+                        color = MaterialTheme.colors.onBackground,
+                        modifier = Modifier.padding(start = 10.dp)
+                    )
+                }
+            }
+
+        }
+        Button(
+            modifier = modifier,
+            onClick = { /*TODO Sign in*/ },
+            colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
+        ) {
+            Box(Modifier.fillMaxWidth()) {
+                Row(
+                    modifier = Modifier.align(Alignment.CenterStart),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    PersonIcon(
+                        bgColor = MaterialTheme.colors.secondaryVariant,
+                        iconColor = MaterialTheme.colors.onBackground
+                    )
+                    Text(
+                        stringResource(id = R.string.other_account),
+                        color = MaterialTheme.colors.onBackground,
+                        modifier = Modifier.padding(start = 10.dp)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun LoginSignInButton(modifier: Modifier = Modifier) {
+    Button(
+        modifier = modifier.height(40.dp),
+        onClick = { /*TODO Sign in*/ },
+        colors = ButtonDefaults.buttonColors(contentColor = MaterialTheme.colors.onSurface)
+    ) {
+        Text(stringResource(id = R.string.sign_in))
+    }
+}
+
+@Composable
+fun PersonIcon(bgColor: Color, iconColor: Color) {
+    Surface(shape = MaterialTheme.shapes.large, color = bgColor) {
+        Icon(
+            painterResource(id = R.drawable.person),
+            contentDescription = null,
+            tint = iconColor,
+            modifier = Modifier
+                .size(30.dp)
+                .padding(5.dp)
+        )
+    }
+}
+
+
+@Composable
+fun LoginLogos(modifier: Modifier = Modifier) {
+
+    Column(modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Image(
-            painter = painterResource(id = R.drawable.add_media),
-            colorFilter = ColorFilter.tint(MaterialTheme.colors.onBackground),
+            modifier = Modifier.size(50.dp),
+            painter = painterResource(id = R.drawable.microsoft_logo),
             contentDescription = null
         )
+        Spacer(Modifier.size(30.dp))
         Image(
-            painter = painterResource(id = R.drawable.add_media),
-            colorFilter = ColorFilter.tint(MaterialTheme.colors.onBackground),
+            modifier = Modifier.size(200.dp),
+            painter = painterResource(id = R.drawable.feedback_logo),
             contentDescription = null
         )
     }
@@ -71,10 +204,19 @@ fun LoginLogos() {
 
 
 @Composable
-fun AppDescription() {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(stringResource(id = R.string.feedback_for_surface_duo))
-        Text(stringResource(id = R.string.app_description))
+fun AppDescription(modifier: Modifier = Modifier) {
+    Column(modifier.padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            stringResource(id = R.string.feedback_for_surface_duo),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.h2
+        )
+        Text(
+            stringResource(id = R.string.app_description),
+            modifier = Modifier.padding(top = 10.dp),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.subtitle2
+        )
     }
 }
 

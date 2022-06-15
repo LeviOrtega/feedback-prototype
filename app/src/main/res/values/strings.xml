@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Feedback</string>
-    <string name="app_description">Help us make Surface Duo better by sharing your suggestions amd problems</string>
+    <string name="app_description">Help us make Surface Duo better by sharing your suggestions and problems.</string>
 
     <string name="sign_in">Sign in</string>
     <string name="add_media">Add Media</string>
@@ -24,6 +24,10 @@
 
     <string name="disclaimer_1">By giving us feedback you agree that Microsoft can use your feedback to improve our products and services.</string>
     <string name="disclaimer_2">Your feedback will be used to improve Microsoft\'s products and services. By selecting "Submit", you agree that Microsoft can email you about your feedback.</string>
+
+    <string name="placeholder_email">namename@gmail.com</string>
+    <string name="other_account">Other Account</string>
+
 
     <string name="device_mode">Device Mode</string>
     <string-array name="device_mode_list">

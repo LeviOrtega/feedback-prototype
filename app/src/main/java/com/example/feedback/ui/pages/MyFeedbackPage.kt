@@ -118,12 +118,6 @@ fun SearchBar(modifier: Modifier = Modifier) {
 
 @Composable
 fun FeedbackToggleButtons(modifier: Modifier = Modifier) {
-    // TODO move these colors to Color.kt
-    val disabledColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.12f)
-        .compositeOver(MaterialTheme.colors.surface)
-    val disabledContentColor: Color = MaterialTheme.colors.onSurface
-        .copy(alpha = ContentAlpha.disabled)
-
     Row(modifier) {
         Button(
             modifier = Modifier
@@ -133,8 +127,8 @@ fun FeedbackToggleButtons(modifier: Modifier = Modifier) {
             shape = MaterialTheme.shapes.medium,
             onClick = { toggle = false },
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = if (!toggle) MaterialTheme.colors.primary else disabledColor,
-                contentColor = if (!toggle) MaterialTheme.colors.onBackground else disabledContentColor
+                backgroundColor = if (!toggle) MaterialTheme.colors.primary else MaterialTheme.colors.secondary,
+                contentColor = if (!toggle) MaterialTheme.colors.onBackground else MaterialTheme.colors.secondaryVariant
             )
         ) {
             Text(stringResource(id = R.string.my_feedback))
@@ -146,8 +140,8 @@ fun FeedbackToggleButtons(modifier: Modifier = Modifier) {
             shape = MaterialTheme.shapes.medium,
             onClick = { toggle = true },
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = if (toggle) MaterialTheme.colors.primary else disabledColor,
-                contentColor = if (toggle) MaterialTheme.colors.onBackground else disabledContentColor
+                backgroundColor = if (toggle) MaterialTheme.colors.primary else MaterialTheme.colors.secondary,
+                contentColor = if (toggle) MaterialTheme.colors.onBackground else MaterialTheme.colors.secondaryVariant
             )
         ) {
             Text(stringResource(id = R.string.latest_feedback))
