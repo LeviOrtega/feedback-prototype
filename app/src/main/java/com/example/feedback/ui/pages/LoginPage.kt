@@ -34,18 +34,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.feedback.R
 import com.example.feedback.ui.theme.FeedbackTheme
+import com.microsoft.device.dualscreen.twopanelayout.TwoPaneLayout
+import com.microsoft.device.dualscreen.twopanelayout.TwoPaneMode
 import kotlin.math.sign
 
 var signedInBefore: Boolean by (mutableStateOf(true))
 
+
 @Composable
-fun LoginPage() {
+fun LoginPageFull(navController: NavController) {
 
     Scaffold(
         content = { LoginContent() },
-        bottomBar = { LoginBottomBar() }
+        bottomBar = { LoginBottomBar(navController = navController) }
     )
 }
 
@@ -66,7 +70,7 @@ fun LoginContent() {
 //TODO remove skip changing signed in before, I did this to test the different looks so remove once navigation begins
 
 @Composable
-fun LoginBottomBar() {
+fun LoginBottomBar(navController: NavController) {
     Column {
         if (signedInBefore) {
             LoginSignInChoices(
@@ -97,7 +101,7 @@ fun LoginBottomBar() {
                     .align(Alignment.CenterEnd)
                     .width(70.dp)
                     .height(40.dp),
-                onClick = {/*TODO navigate to FRE*/ signedInBefore = !signedInBefore },
+                onClick = {/*TODO navigate to FRE*/ navController.navigate("feedback") },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
                 border = BorderStroke(1.dp, MaterialTheme.colors.onBackground)
             ) {
@@ -221,11 +225,11 @@ fun AppDescription(modifier: Modifier = Modifier) {
 }
 
 
-@Preview
-@Composable
-fun PreviewLoginPage() {
-    FeedbackTheme {
-        LoginPage()
-    }
-}
+//@Preview
+//@Composable
+//fun PreviewLoginPageFull() {
+//    FeedbackTheme {
+//        LoginPageFull()
+//    }
+//}
 
