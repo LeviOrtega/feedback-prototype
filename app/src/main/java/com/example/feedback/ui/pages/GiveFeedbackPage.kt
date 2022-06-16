@@ -65,12 +65,10 @@ fun GiveFeedbackBottomBar() {
     Divider(color = colors.surface)
     BottomNavigation(elevation = 10.dp, backgroundColor = Color.Transparent) {
 
-        Text(stringResource(id = R.string.privacy_statement),
-            color = MaterialTheme.colors.primary,
-            modifier = Modifier
+        PrivacyPolicyButton(
+            Modifier
                 .align(Alignment.CenterVertically)
                 .padding(start = 20.dp)
-                .clickable { /*TODO navigate to privacy policy*/ }
         )
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -80,7 +78,7 @@ fun GiveFeedbackBottomBar() {
         ) {
 
             OutlinedButton(
-                onClick = {/*TODO navigate on cancel*/ },
+                onClick = { navigateToPane1() /* TODO Cancel clears all values as well? Important for dual mode when this page doesnt navigate anywhere*/ },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
                 border = BorderStroke(1.dp, colors.onBackground)
             ) {
@@ -90,13 +88,22 @@ fun GiveFeedbackBottomBar() {
             Spacer(modifier = Modifier.size(10.dp))
 
             Button(
-                onClick = {/*TODO navigate on submit*/ },
+                onClick = {/*TODO navigate on submit*/ navigateToPane1() },
                 colors = ButtonDefaults.buttonColors(contentColor = colors.onSurface)
             ) {
                 Text(stringResource(id = R.string.submit))
             }
         }
     }
+}
+
+@Composable
+fun PrivacyPolicyButton(modifier: Modifier = Modifier) {
+    Text(stringResource(id = R.string.privacy_statement),
+        color = MaterialTheme.colors.primary,
+        modifier = modifier
+            .clickable { /*TODO navigate to privacy policy*/ }
+    )
 }
 
 @Composable
@@ -120,15 +127,15 @@ fun GiveFeedbackContent() {
             .padding(15.dp)
             .fillMaxSize()
     ) {
-        FeedbackDetails()
-        AdditionalInfo()
+        GiveFeedbackDetails()
+        GiveFeedbackAdditionalInfo()
         AddMediaButton()
     }
 }
 
 @Composable
 fun AddMediaButton() {
-    Button(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
+    Button(onClick = { /*TODO Add Media*/ }, modifier = Modifier.fillMaxWidth()) {
         Row(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
@@ -146,9 +153,10 @@ fun AddMediaButton() {
     }
 }
 
+// This opt in is for removing defualt padding on the check box
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun AdditionalInfo() {
+fun GiveFeedbackAdditionalInfo() {
     var check by remember { mutableStateOf(false) }
     Box(
         modifier = Modifier
@@ -189,7 +197,7 @@ fun AdditionalInfo() {
 }
 
 @Composable
-fun FeedbackDetails() {
+fun GiveFeedbackDetails() {
     var text by remember { mutableStateOf("") }
     OutlinedTextField(
         modifier = Modifier

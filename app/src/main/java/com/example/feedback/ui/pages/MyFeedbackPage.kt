@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,7 +13,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -33,9 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -105,6 +101,7 @@ fun SearchBar(modifier: Modifier = Modifier) {
     var text by remember { mutableStateOf("") }
     TextField(
         modifier = modifier,
+        shape = MaterialTheme.shapes.small,
         value = text,
         onValueChange = { text = it },
         placeholder = { Text(stringResource(id = R.string.search)) },
@@ -124,7 +121,7 @@ fun FeedbackToggleButtons(modifier: Modifier = Modifier) {
                 .padding(end = 10.dp)
                 .fillMaxWidth(0.5f)
                 .size(35.dp),
-            shape = MaterialTheme.shapes.medium,
+            shape = MaterialTheme.shapes.large,
             onClick = { toggle = false },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = if (!toggle) MaterialTheme.colors.primary else MaterialTheme.colors.secondary,
@@ -137,7 +134,7 @@ fun FeedbackToggleButtons(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .fillMaxWidth()
                 .size(35.dp),
-            shape = MaterialTheme.shapes.medium,
+            shape = MaterialTheme.shapes.large,
             onClick = { toggle = true },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = if (toggle) MaterialTheme.colors.primary else MaterialTheme.colors.secondary,
@@ -163,7 +160,7 @@ fun MyFeedbackContent() {
 fun MyFeedbackList(){
     LazyColumn(Modifier.padding(start = 10.dp, end = 10.dp, top = 15.dp)) {
         items(15) { index ->
-            FeedbackFragment(
+            FeedbackSummaryButton(
                 modifier = Modifier
                     .padding(bottom = 5.dp)
                     .fillMaxWidth()
@@ -180,7 +177,7 @@ fun MyFeedbackList(){
 fun LatestFeedbackList(){
     LazyColumn(Modifier.padding(start = 10.dp, end = 10.dp, top = 15.dp)) {
         items(2) { index ->
-            FeedbackFragment(
+            FeedbackSummaryButton(
                 modifier = Modifier
                     .padding(bottom = 5.dp)
                     .fillMaxWidth()
@@ -194,7 +191,7 @@ fun LatestFeedbackList(){
 }
 
 @Composable
-fun FeedbackFragment(
+fun FeedbackSummaryButton(
     modifier: Modifier = Modifier,
     titleID: Int,
     descriptionID: Int,

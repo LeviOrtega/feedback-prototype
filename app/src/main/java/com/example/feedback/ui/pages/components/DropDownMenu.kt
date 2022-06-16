@@ -40,7 +40,7 @@ fun DropDown(options: Array<String>, placeHolder: String, modifier: Modifier = M
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             readOnly = true,
-            maxLines = 1,
+            //maxLines = 1,
             value = selectedOptionText,
             onValueChange = { },
             trailingIcon = {

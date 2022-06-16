@@ -29,45 +29,61 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.feedback.R
-import com.example.feedback.ui.theme.FeedbackTheme
-import com.microsoft.device.dualscreen.twopanelayout.TwoPaneLayout
-import com.microsoft.device.dualscreen.twopanelayout.TwoPaneMode
-import kotlin.math.sign
 
 var signedInBefore: Boolean by (mutableStateOf(true))
 
 
 @Composable
 fun LoginPageFull(navController: NavController) {
-
     Scaffold(
-        content = { LoginContent() },
+        content = { LoginContentFull() },
         bottomBar = { LoginBottomBar(navController = navController) }
     )
 }
 
 @Composable
-fun LoginContent() {
+fun LoginPageHalf(navController: NavController) {
+    Scaffold(
+        content = { LoginContentHalf() },
+        bottomBar = { LoginBottomBar(navController = navController) }
+    )
+}
+
+@Composable
+fun LoginContentHalf() {
+    Box(Modifier.fillMaxSize()) {
+        AppDescription(
+            Modifier
+                .fillMaxWidth(0.7f)
+                .align(Alignment.Center)
+        )
+    }
+
+}
+
+@Composable
+fun LoginContentFull() {
     Box(Modifier.fillMaxSize()) {
         Column(
             Modifier
                 .align(Alignment.TopCenter)
-                .padding(top = 100.dp)
+                // for text rounding
+                .fillMaxWidth(0.7f)
+                // 10 % of the screen down
+                .padding(top = (LocalConfiguration.current.screenHeightDp * 0.1).dp)
         ) {
             LoginLogos(Modifier.fillMaxWidth())
             AppDescription(Modifier.fillMaxWidth())
         }
     }
 }
-
-//TODO remove skip changing signed in before, I did this to test the different looks so remove once navigation begins
 
 @Composable
 fun LoginBottomBar(navController: NavController) {
@@ -101,7 +117,7 @@ fun LoginBottomBar(navController: NavController) {
                     .align(Alignment.CenterEnd)
                     .width(70.dp)
                     .height(40.dp),
-                onClick = {/*TODO navigate to FRE*/ navController.navigate("feedback") },
+                onClick = {/*TODO navigate to FRE*/ navController.navigate("fre") },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
                 border = BorderStroke(1.dp, MaterialTheme.colors.onBackground)
             ) {
@@ -139,7 +155,7 @@ fun LoginSignInChoices(modifier: Modifier = Modifier) {
         }
         Button(
             modifier = modifier,
-            onClick = { /*TODO Sign in*/ },
+            onClick = { /*TODO Choose other account*/ },
             colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
         ) {
             Box(Modifier.fillMaxWidth()) {
@@ -174,6 +190,24 @@ fun LoginSignInButton(modifier: Modifier = Modifier) {
 }
 
 @Composable
+fun LoginLogos(modifier: Modifier = Modifier) {
+
+    Column(modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+        Image(
+            modifier = Modifier.size(50.dp),
+            painter = painterResource(id = R.drawable.microsoft_logo),
+            contentDescription = null
+        )
+        Spacer(Modifier.size(30.dp))
+        Image(
+            modifier = Modifier.size(130.dp),
+            painter = painterResource(id = R.drawable.feedback_logo),
+            contentDescription = null
+        )
+    }
+}
+
+@Composable
 fun PersonIcon(bgColor: Color, iconColor: Color) {
     Surface(shape = MaterialTheme.shapes.large, color = bgColor) {
         Icon(
@@ -186,26 +220,6 @@ fun PersonIcon(bgColor: Color, iconColor: Color) {
         )
     }
 }
-
-
-@Composable
-fun LoginLogos(modifier: Modifier = Modifier) {
-
-    Column(modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-        Image(
-            modifier = Modifier.size(50.dp),
-            painter = painterResource(id = R.drawable.microsoft_logo),
-            contentDescription = null
-        )
-        Spacer(Modifier.size(30.dp))
-        Image(
-            modifier = Modifier.size(200.dp),
-            painter = painterResource(id = R.drawable.feedback_logo),
-            contentDescription = null
-        )
-    }
-}
-
 
 @Composable
 fun AppDescription(modifier: Modifier = Modifier) {

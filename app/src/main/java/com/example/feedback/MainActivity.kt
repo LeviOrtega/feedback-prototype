@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    PageManager(windowManager = windowManager)
+                    PageManager(windowState = windowState)
                 }
             }
         }

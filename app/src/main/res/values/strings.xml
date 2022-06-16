@@ -11,6 +11,7 @@
     <string name="deny">Deny</string>
     <string name="search">Search</string>
     <string name="skip">Skip</string>
+    <string name="accept">Accept</string>
 
     <string name="include_additional">Include additional system diagnostic data and content</string>
     <string name="give_feedback_nav">Give new feedback to Microsoft</string>
@@ -21,6 +22,8 @@
     <string name="full_experience">Sign in to get the full experience</string>
     <string name="track_responses">Easily track your feedback and responses you receive</string>
     <string name="feedback_for_surface_duo">Feedback for Surface Duo</string>
+
+    <string name="we_want_hear">We want to hear from you</string>
 
     <string name="disclaimer_1">By giving us feedback you agree that Microsoft can use your feedback to improve our products and services.</string>
     <string name="disclaimer_2">Your feedback will be used to improve Microsoft\'s products and services. By selecting "Submit", you agree that Microsoft can email you about your feedback.</string>
