@@ -8,11 +8,11 @@ import com.microsoft.device.dualscreen.twopanelayout.TwoPaneLayout
 import com.microsoft.device.dualscreen.twopanelayout.TwoPaneMode
 
 @Composable
-fun MyFeedbackNav(navController: NavController){
+fun MyFeedbackNav(navController: NavController, openDrawer: () -> Unit){
     TwoPaneLayout(
         paneMode = TwoPaneMode.HorizontalSingle,
         pane1 = {
-           MyFeedbackPage()
+           MyFeedbackPage(openDrawer)
         },
         pane2 = {
             GiveFeedbackPage()

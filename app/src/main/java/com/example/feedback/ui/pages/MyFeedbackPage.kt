@@ -43,9 +43,9 @@ import com.microsoft.device.dualscreen.twopanelayout.navigateToPane2
 var toggle: Boolean by (mutableStateOf(false))
 
 @Composable
-fun MyFeedbackPage() {
+fun MyFeedbackPage(openDrawer: () -> Unit) {
     Scaffold(
-        topBar = { MyFeedbackTopBar() },
+        topBar = { MyFeedbackTopBar(openDrawer) },
         content = { MyFeedbackContent() },
         floatingActionButton = { AddFeedbackFloatingButton() }
     )
@@ -67,13 +67,13 @@ fun AddFeedbackFloatingButton() {
 }
 
 @Composable
-fun MyFeedbackTopBar() {
+fun MyFeedbackTopBar(openDrawer: () -> Unit) {
     Column(modifier = Modifier.background(MaterialTheme.colors.surface)) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = { /*TODO open menu */ }) {
+            IconButton(onClick = {openDrawer()}) {
                 Icon(Icons.Filled.Menu, null)
             }
             Text(stringResource(id = R.string.feedback))
@@ -230,7 +230,7 @@ fun FeedbackSummaryButton(
 @Preview
 fun PreviewMyFeedbackPage() {
     FeedbackTheme {
-        MyFeedbackPage()
+        MyFeedbackPage({})
     }
 }
 
