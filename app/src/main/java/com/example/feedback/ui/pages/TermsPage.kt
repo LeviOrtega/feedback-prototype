@@ -15,18 +15,18 @@ import androidx.navigation.NavController
 import com.example.feedback.R
 
 @Composable
-fun PrivacyStatementPage(navController: NavController){
+fun TermsPage(navController: NavController){
     Scaffold(
-        topBar = { PrivacyStatementTopBar(navController = navController) },
-        content = { PrivacyStatementContent() },
+        topBar = { TermsTopBar(navController = navController) },
+        content = { TermsContent() },
     )
 }
 
 
 @Composable
-fun PrivacyStatementTopBar(navController: NavController) {
+fun TermsTopBar(navController: NavController) {
     TopAppBar(
-        title = { Text(stringResource(id = R.string.privacy_statement)) },
+        title = { Text(stringResource(id = R.string.terms_of_use)) },
         navigationIcon = {
             IconButton(onClick = { /*TODO navigate back */  navController.popBackStack()}) {
                 Icon(Icons.Filled.ArrowBack, contentDescription = null)
@@ -38,6 +38,6 @@ fun PrivacyStatementTopBar(navController: NavController) {
 }
 
 @Composable
-fun PrivacyStatementContent(){
-    Text(stringResource(id = R.string.privacy_statement))
+fun TermsContent(){
+    Text(stringResource(id = R.string.terms_of_use))
 }

@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.feedback.ui.pages.PrivacyStatementPage
+import com.example.feedback.ui.pages.TermsPage
 import com.example.feedback.ui.pages.components.DrawerWrapper
 import com.microsoft.device.dualscreen.windowstate.WindowState
 import kotlinx.coroutines.launch
@@ -19,6 +20,7 @@ fun PageManager(windowState: WindowState) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
+    // any page can open the drawer just pass this val to it, closing is handled by the drawer
     val updateDrawerState: (DrawerValue) -> Unit = { drawerValue ->
         scope.launch {
             when (drawerValue) {
@@ -37,7 +39,8 @@ fun PageManager(windowState: WindowState) {
             NavHost(navController = navController, startDestination = "login") {
                 composable("login") { LoginPageNav(navController, windowState) }
                 composable("fre") { FRENav(navController, windowState) }
-                composable("privacy") { PrivacyStatementPage() }
+                composable("privacy") { PrivacyStatementPage(navController) }
+                composable("terms") { TermsPage(navController) }
                 composable("feedback") {
                     // we only need to handle opening the drawer so just pass that value in the function to call
                     MyFeedbackNav(navController) { updateDrawerState(DrawerValue.Open) }

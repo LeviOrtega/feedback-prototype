@@ -37,8 +37,11 @@ class DrawerScreens(val title: String, val route: String) {}
 @Composable
 private fun screens(): List<DrawerScreens> {
     return listOf(
+        DrawerScreens(stringResource(id = R.string.home), "feedback"),
+        DrawerScreens(stringResource(id = R.string.privacy_statement), "privacy"),
+        DrawerScreens(stringResource(id = R.string.terms_of_use), "terms"),
         DrawerScreens(stringResource(id = R.string.sign_in), "login"),
-        DrawerScreens(stringResource(id = R.string.privacy_statement), "privacy")
+
     )
 }
 
@@ -71,7 +74,8 @@ fun DrawerWrapper(
                         popUpTo(homeScreen)
                         launchSingleTop = true
                     }
-                }
+                },
+                navController = navController
             )
         }
     ) {
@@ -82,9 +86,11 @@ fun DrawerWrapper(
 @Composable
 fun Drawer(
     modifier: Modifier = Modifier,
-    onDestinationClicked: (route: String) -> Unit
+    onDestinationClicked: (route: String) -> Unit,
+    navController: NavController
 
 ) {
+
     Column(
         modifier
             .fillMaxSize()
@@ -99,11 +105,19 @@ fun Drawer(
                     bgColor = MaterialTheme.colors.onBackground,
                     iconColor = MaterialTheme.colors.primary
                 )
-                Text(
-                    stringResource(id = R.string.placeholder_email),
-                    color = MaterialTheme.colors.onBackground,
-                    modifier = Modifier.padding(start = 10.dp)
-                )
+                Column(horizontalAlignment = Alignment.Start){
+                    Text(
+                        stringResource(id = R.string.username),
+                        color = MaterialTheme.colors.onBackground,
+                        modifier = Modifier.padding(start = 10.dp)
+                    )
+                    Text(
+                        stringResource(id = R.string.placeholder_email),
+                        color = MaterialTheme.colors.onBackground,
+                        modifier = Modifier.padding(start = 10.dp),
+                        style = MaterialTheme.typography.caption
+                    )
+                }
             }
         }
         screens().forEach { screen ->
@@ -111,6 +125,7 @@ fun Drawer(
             Text(
                 text = screen.title,
                 style = MaterialTheme.typography.subtitle1,
+                color = if (screen.title == "Home") MaterialTheme.colors.primary else MaterialTheme.colors.onBackground,
                 modifier = Modifier.clickable {
                     onDestinationClicked(screen.route)
                 }
