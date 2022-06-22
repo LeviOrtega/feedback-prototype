@@ -28,7 +28,7 @@ import com.example.feedback.R
 @Composable
 fun FREPageFull(navController: NavController) {
     Scaffold(
-        content = { FREContentFull() },
+        content = { FREContentFull(navController) },
         bottomBar = { FREBottomBar(navController = navController) }
     )
 }
@@ -36,13 +36,13 @@ fun FREPageFull(navController: NavController) {
 @Composable
 fun FREPageHalf(navController: NavController) {
     Scaffold(
-        content = { FREContentHalf() },
+        content = { FREContentHalf(navController) },
         bottomBar = { FREBottomBar(navController = navController) }
     )
 }
 
 @Composable
-fun FREContentHalf() {
+fun FREContentHalf(navController: NavController) {
     Box(Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
@@ -51,7 +51,7 @@ fun FREContentHalf() {
         ) {
             AppDisclaimer()
             Box(Modifier.fillMaxWidth()) {
-                PrivacyPolicyButton(Modifier.align(Alignment.Center))
+                PrivacyPolicyButton(Modifier.align(Alignment.Center), navController )
             }
 
         }
@@ -60,7 +60,7 @@ fun FREContentHalf() {
 }
 
 @Composable
-fun FREContentFull() {
+fun FREContentFull(navController: NavController) {
     Box(Modifier.fillMaxSize()) {
         Column(
             Modifier
@@ -73,7 +73,7 @@ fun FREContentFull() {
             FRELogo(Modifier.fillMaxWidth())
             AppDisclaimer(Modifier.fillMaxWidth())
             Box(Modifier.fillMaxWidth()) {
-                PrivacyPolicyButton(Modifier.align(Alignment.Center))
+                PrivacyPolicyButton(Modifier.align(Alignment.Center), navController)
             }
         }
     }

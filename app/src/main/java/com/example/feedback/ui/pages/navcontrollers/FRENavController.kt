@@ -16,15 +16,14 @@ import com.microsoft.device.dualscreen.twopanelayout.TwoPaneLayout
 import com.microsoft.device.dualscreen.windowstate.WindowState
 
 @Composable
-fun FRENav(navController: NavController, windowState: WindowState){
+fun FRENav(navController: NavController, windowState: WindowState) {
     TwoPaneLayout(
         pane1 = {
-            if (windowState.isDualScreen()){
-                Box(modifier = Modifier.fillMaxSize()){
+            if (windowState.isDualScreen()) {
+                Box(modifier = Modifier.fillMaxSize()) {
                     FRELogo(Modifier.align(Alignment.Center))
                 }
-            }
-            else {
+            } else {
                 FREPageFull(navController = navController)
             }
         },

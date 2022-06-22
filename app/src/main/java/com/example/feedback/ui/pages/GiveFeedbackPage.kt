@@ -46,29 +46,31 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.feedback.R
 import com.example.feedback.ui.pages.components.DropDown
 import com.example.feedback.ui.theme.FeedbackTheme
 import com.microsoft.device.dualscreen.twopanelayout.navigateToPane1
 
 @Composable
-fun GiveFeedbackPage() {
+fun GiveFeedbackPage(navController: NavController) {
     Scaffold(
         topBar = { GiveFeedbackTopBar() },
         content = { GiveFeedbackContent() },
-        bottomBar = { GiveFeedbackBottomBar() }
+        bottomBar = { GiveFeedbackBottomBar(navController) }
     )
 }
 
 @Composable
-fun GiveFeedbackBottomBar() {
+fun GiveFeedbackBottomBar(navController: NavController) {
     Divider(color = colors.surface)
     BottomNavigation(elevation = 10.dp, backgroundColor = Color.Transparent) {
 
         PrivacyPolicyButton(
             Modifier
                 .align(Alignment.CenterVertically)
-                .padding(start = 20.dp)
+                .padding(start = 20.dp),
+            navController
         )
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -98,11 +100,11 @@ fun GiveFeedbackBottomBar() {
 }
 
 @Composable
-fun PrivacyPolicyButton(modifier: Modifier = Modifier) {
+fun PrivacyPolicyButton(modifier: Modifier = Modifier, navController: NavController) {
     Text(stringResource(id = R.string.privacy_statement),
         color = MaterialTheme.colors.primary,
         modifier = modifier
-            .clickable { /*TODO navigate to privacy policy*/ }
+            .clickable { /*TODO navigate to privacy policy*/ navController.navigate("privacy") }
     )
 }
 
@@ -227,14 +229,5 @@ fun GiveFeedbackDetails() {
             stringResource(id = R.string.frequency),
             modifier = Modifier.fillMaxWidth()
         )
-    }
-}
-
-
-@Preview
-@Composable
-fun previewGiveFeedbackPage() {
-    FeedbackTheme {
-        GiveFeedbackPage()
     }
 }

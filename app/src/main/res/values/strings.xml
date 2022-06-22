@@ -13,6 +13,7 @@
     <string name="skip">Skip</string>
     <string name="accept">Accept</string>
 
+
     <string name="include_additional">Include additional system diagnostic data and content</string>
     <string name="give_feedback_nav">Give new feedback to Microsoft</string>
     <string name="feedback_placeholder">Give as much detail as you can. Your feedback is public so don\'t include any personal information.</string>
@@ -55,7 +56,4 @@
 
     <string name="fragment_title">The keyboard in OOBE is acting lorem ipusm</string>
     <string name="fragment_description">Buil: 2020.101.4.60Repro steps are to great and the rest is lorem</string>
-
-
-
 </resources>

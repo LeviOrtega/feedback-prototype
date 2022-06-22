@@ -1,4 +1,4 @@
-package com.example.feedback.ui.pages.components
+package com.example.feedback.ui.pages.navcontrollers
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
@@ -8,14 +8,14 @@ import com.microsoft.device.dualscreen.twopanelayout.TwoPaneLayout
 import com.microsoft.device.dualscreen.twopanelayout.TwoPaneMode
 
 @Composable
-fun MyFeedbackNav(navController: NavController, openDrawer: () -> Unit){
+fun MyFeedbackNav(navController: NavController, openDrawer: () -> Unit) {
     TwoPaneLayout(
         paneMode = TwoPaneMode.HorizontalSingle,
         pane1 = {
-           MyFeedbackPage(openDrawer)
+            MyFeedbackPage(openDrawer)
         },
         pane2 = {
-            GiveFeedbackPage()
+            GiveFeedbackPage(navController)
         }
     )
 }

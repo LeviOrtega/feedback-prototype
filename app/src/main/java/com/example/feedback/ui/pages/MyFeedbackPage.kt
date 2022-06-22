@@ -73,7 +73,7 @@ fun MyFeedbackTopBar(openDrawer: () -> Unit) {
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = {openDrawer()}) {
+            IconButton(onClick = { openDrawer() }) {
                 Icon(Icons.Filled.Menu, null)
             }
             Text(stringResource(id = R.string.feedback))
@@ -148,16 +148,15 @@ fun FeedbackToggleButtons(modifier: Modifier = Modifier) {
 
 @Composable
 fun MyFeedbackContent() {
-    if (toggle){
-       LatestFeedbackList()
-    }
-    else {
+    if (toggle) {
+        LatestFeedbackList()
+    } else {
         MyFeedbackList()
     }
 }
 
 @Composable
-fun MyFeedbackList(){
+fun MyFeedbackList() {
     LazyColumn(Modifier.padding(start = 10.dp, end = 10.dp, top = 15.dp)) {
         items(15) { index ->
             FeedbackSummaryButton(
@@ -174,7 +173,7 @@ fun MyFeedbackList(){
 }
 
 @Composable
-fun LatestFeedbackList(){
+fun LatestFeedbackList() {
     LazyColumn(Modifier.padding(start = 10.dp, end = 10.dp, top = 15.dp)) {
         items(2) { index ->
             FeedbackSummaryButton(
