@@ -44,18 +44,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.feedback.R
 import com.example.feedback.ui.pages.components.DropDown
-import com.example.feedback.ui.theme.FeedbackTheme
-import com.microsoft.device.dualscreen.twopanelayout.navigateToPane1
 
 @Composable
 fun GiveFeedbackPage(navController: NavController) {
     Scaffold(
-        topBar = { GiveFeedbackTopBar() },
+        topBar = { GiveFeedbackTopBar(navController) },
         content = { GiveFeedbackContent() },
         bottomBar = { GiveFeedbackBottomBar(navController) }
     )
@@ -80,7 +77,7 @@ fun GiveFeedbackBottomBar(navController: NavController) {
         ) {
 
             OutlinedButton(
-                onClick = { navigateToPane1() /* TODO Cancel clears all values as well? Important for dual mode when this page doesnt navigate anywhere*/ },
+                onClick = { navController.navigate("home") /* TODO Cancel clears all values as well? Important for dual mode when this page doesnt navigate anywhere*/ },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
                 border = BorderStroke(1.dp, colors.onBackground)
             ) {
@@ -90,7 +87,7 @@ fun GiveFeedbackBottomBar(navController: NavController) {
             Spacer(modifier = Modifier.size(10.dp))
 
             Button(
-                onClick = {/*TODO navigate on submit*/ navigateToPane1() },
+                onClick = {/*TODO navigate on submit*/ navController.navigate("home") },
                 colors = ButtonDefaults.buttonColors(contentColor = colors.onSurface)
             ) {
                 Text(stringResource(id = R.string.submit))
@@ -109,11 +106,11 @@ fun PrivacyPolicyButton(modifier: Modifier = Modifier, navController: NavControl
 }
 
 @Composable
-fun GiveFeedbackTopBar() {
+fun GiveFeedbackTopBar(navController: NavController) {
     TopAppBar(
         title = { Text(stringResource(id = R.string.give_feedback_nav)) },
         navigationIcon = {
-            IconButton(onClick = { /*TODO navigate back to my feedback page*/ navigateToPane1() }) {
+            IconButton(onClick = { /*TODO navigate back to my feedback page*/ navController.navigate("home") }) {
                 Icon(Icons.Filled.ArrowBack, contentDescription = null)
             }
         },

@@ -40,7 +40,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.feedback.R
 import com.example.feedback.ui.theme.FeedbackTheme
-import com.microsoft.device.dualscreen.twopanelayout.navigateToPane2
+
 
 var toggle: Boolean by (mutableStateOf(false))
 
@@ -49,14 +49,14 @@ fun MyFeedbackPage(navController: NavController, openDrawer: () -> Unit) {
     Scaffold(
         topBar = { MyFeedbackTopBar(openDrawer) },
         content = { MyFeedbackContent(navController) },
-        floatingActionButton = { AddFeedbackFloatingButton() }
+        floatingActionButton = { AddFeedbackFloatingButton(navController) }
     )
 }
 
 @Composable
-fun AddFeedbackFloatingButton() {
+fun AddFeedbackFloatingButton(navController: NavController) {
     Button(
-        onClick = { /*TODO Navigate to new feedback */ navigateToPane2() },
+        onClick = { /*TODO Navigate to new feedback */ navController.navigate("give") },
         shape = MaterialTheme.shapes.large,
         modifier = Modifier.size(65.dp)
     ) {
