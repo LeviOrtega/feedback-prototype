@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/t-leviortega/AndroidStudioProjects/Feedback/app/src/main/res/drawable/acccount_circle.xml" value="0.1865" />
+        <entry key="..\:/Users/t-leviortega/AndroidStudioProjects/Feedback/app/src/main/res/drawable/add_media.xml" value="0.1865" />
+        <entry key="..\:/Users/t-leviortega/AndroidStudioProjects/Feedback/app/src/main/res/drawable/comment.xml" value="0.1865" />
+        <entry key="..\:/Users/t-leviortega/AndroidStudioProjects/Feedback/app/src/main/res/drawable/feedback_logo.xml" value="0.1865" />
         <entry key="..\:/Users/t-leviortega/AndroidStudioProjects/Feedback/app/src/main/res/drawable/help.xml" value="0.228" />
+        <entry key="..\:/Users/t-leviortega/AndroidStudioProjects/Feedback/app/src/main/res/drawable/microsoft_logo.xml" value="0.1865" />
       </map>
     </option>
   </component>

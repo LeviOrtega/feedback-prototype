@@ -1,6 +1,7 @@
 package com.example.feedback.ui.pages.navcontrollers
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.feedback.ui.pages.GiveFeedbackPage
 import com.example.feedback.ui.pages.MyFeedbackPage
@@ -12,7 +13,7 @@ fun MyFeedbackNav(navController: NavController, openDrawer: () -> Unit) {
     TwoPaneLayout(
         paneMode = TwoPaneMode.HorizontalSingle,
         pane1 = {
-            MyFeedbackPage(openDrawer)
+            MyFeedbackPage(navController, openDrawer)
         },
         pane2 = {
             GiveFeedbackPage(navController)

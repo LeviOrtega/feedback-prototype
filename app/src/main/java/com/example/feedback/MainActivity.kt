@@ -25,10 +25,13 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     PageManager(windowState = windowState)
+
                 }
             }
         }
     }
 }
+
+
 
 

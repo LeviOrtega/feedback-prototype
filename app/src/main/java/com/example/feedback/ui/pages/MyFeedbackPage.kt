@@ -36,6 +36,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.feedback.R
 import com.example.feedback.ui.theme.FeedbackTheme
 import com.microsoft.device.dualscreen.twopanelayout.navigateToPane2
@@ -43,10 +45,10 @@ import com.microsoft.device.dualscreen.twopanelayout.navigateToPane2
 var toggle: Boolean by (mutableStateOf(false))
 
 @Composable
-fun MyFeedbackPage(openDrawer: () -> Unit) {
+fun MyFeedbackPage(navController: NavController, openDrawer: () -> Unit) {
     Scaffold(
         topBar = { MyFeedbackTopBar(openDrawer) },
-        content = { MyFeedbackContent() },
+        content = { MyFeedbackContent(navController) },
         floatingActionButton = { AddFeedbackFloatingButton() }
     )
 }
@@ -147,23 +149,23 @@ fun FeedbackToggleButtons(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MyFeedbackContent() {
+fun MyFeedbackContent(navController: NavController) {
     if (toggle) {
-        LatestFeedbackList()
+        LatestFeedbackList(navController)
     } else {
-        MyFeedbackList()
+        MyFeedbackList(navController)
     }
 }
 
 @Composable
-fun MyFeedbackList() {
+fun MyFeedbackList(navController: NavController) {
     LazyColumn(Modifier.padding(start = 10.dp, end = 10.dp, top = 15.dp)) {
         items(15) { index ->
             FeedbackSummaryButton(
                 modifier = Modifier
                     .padding(bottom = 5.dp)
                     .fillMaxWidth()
-                    .clickable { /*TODO Navigate to feedback using Index */ },
+                    .clickable { /*TODO Navigate to feedback using Index */ navController.navigate("detail") },
                 titleID = R.string.fragment_title,
                 descriptionID = R.string.fragment_description,
                 imageID = R.drawable.add_media
@@ -173,14 +175,14 @@ fun MyFeedbackList() {
 }
 
 @Composable
-fun LatestFeedbackList() {
+fun LatestFeedbackList(navController: NavController) {
     LazyColumn(Modifier.padding(start = 10.dp, end = 10.dp, top = 15.dp)) {
         items(2) { index ->
             FeedbackSummaryButton(
                 modifier = Modifier
                     .padding(bottom = 5.dp)
                     .fillMaxWidth()
-                    .clickable { /*TODO Navigate to feedback using Index */ },
+                    .clickable { /*TODO Navigate to feedback using Index */ navController.navigate("detail") },
                 titleID = R.string.fragment_title,
                 descriptionID = R.string.fragment_description,
                 imageID = R.drawable.add_media
@@ -229,7 +231,7 @@ fun FeedbackSummaryButton(
 @Preview
 fun PreviewMyFeedbackPage() {
     FeedbackTheme {
-        MyFeedbackPage({})
+        MyFeedbackPage(navController = rememberNavController(), {})
     }
 }
 
