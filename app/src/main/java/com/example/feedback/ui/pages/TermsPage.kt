@@ -11,24 +11,24 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.feedback.R
 
 @Composable
-fun TermsPage(navController: NavController){
+fun TermsPage(navHostController: NavHostController){
     Scaffold(
-        topBar = { TermsTopBar(navController = navController) },
+        topBar = { TermsTopBar(navHostController = navHostController) },
         content = { TermsContent() },
     )
 }
 
 
 @Composable
-fun TermsTopBar(navController: NavController) {
+fun TermsTopBar(navHostController: NavHostController) {
     TopAppBar(
         title = { Text(stringResource(id = R.string.terms_of_use)) },
         navigationIcon = {
-            IconButton(onClick = { /*TODO navigate back */  navController.popBackStack()}) {
+            IconButton(onClick = { /*TODO navigate back */  navHostController.popBackStack()}) {
                 Icon(Icons.Filled.ArrowBack, contentDescription = null)
             }
         },

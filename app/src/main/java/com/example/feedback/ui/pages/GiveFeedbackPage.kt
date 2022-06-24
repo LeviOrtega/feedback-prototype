@@ -45,21 +45,31 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.feedback.R
 import com.example.feedback.ui.pages.components.DropDown
+import com.microsoft.device.dualscreen.twopanelayout.Screen
+import com.microsoft.device.dualscreen.twopanelayout.TwoPaneNavScope
+
 
 @Composable
-fun GiveFeedbackPage(navController: NavController) {
+fun TwoPaneNavScope.GiveFeedbackPage(navHostController: NavHostController) {
+
     Scaffold(
-        topBar = { GiveFeedbackTopBar(navController) },
+        topBar = { GiveFeedbackTopBar(navHostController) },
         content = { GiveFeedbackContent() },
-        bottomBar = { GiveFeedbackBottomBar(navController) }
+        bottomBar = { GiveFeedbackBottomBar(navHostController) }
     )
 }
 
 @Composable
-fun GiveFeedbackBottomBar(navController: NavController) {
+fun TwoPaneNavScope.GiveFeedbackBottomBar(navHostController: NavHostController) {
+    val navHome: () -> Unit = {
+        navHostController.navigateTo(
+            "home",
+            Screen.Pane1
+        )
+    }
     Divider(color = colors.surface)
     BottomNavigation(elevation = 10.dp, backgroundColor = Color.Transparent) {
 
@@ -67,7 +77,7 @@ fun GiveFeedbackBottomBar(navController: NavController) {
             Modifier
                 .align(Alignment.CenterVertically)
                 .padding(start = 20.dp),
-            navController
+            navHostController
         )
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -77,7 +87,10 @@ fun GiveFeedbackBottomBar(navController: NavController) {
         ) {
 
             OutlinedButton(
-                onClick = { navController.navigate("home") /* TODO Cancel clears all values as well? Important for dual mode when this page doesnt navigate anywhere*/ },
+                onClick = {
+                    navHome()
+                    /* TODO Cancel clears all values as well? Important for dual mode when this page doesnt navigate anywhere*/
+                },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
                 border = BorderStroke(1.dp, colors.onBackground)
             ) {
@@ -87,7 +100,8 @@ fun GiveFeedbackBottomBar(navController: NavController) {
             Spacer(modifier = Modifier.size(10.dp))
 
             Button(
-                onClick = {/*TODO navigate on submit*/ navController.navigate("home") },
+                onClick = {/*TODO navigate on submit*/navHome()
+                },
                 colors = ButtonDefaults.buttonColors(contentColor = colors.onSurface)
             ) {
                 Text(stringResource(id = R.string.submit))
@@ -97,20 +111,24 @@ fun GiveFeedbackBottomBar(navController: NavController) {
 }
 
 @Composable
-fun PrivacyPolicyButton(modifier: Modifier = Modifier, navController: NavController) {
+fun PrivacyPolicyButton(modifier: Modifier = Modifier, navHostController: NavHostController) {
     Text(stringResource(id = R.string.privacy_statement),
         color = MaterialTheme.colors.primary,
         modifier = modifier
-            .clickable { /*TODO navigate to privacy policy*/ navController.navigate("privacy") }
+            .clickable { /*TODO navigate to privacy policy*/ navHostController.navigate("privacy") }
     )
 }
 
 @Composable
-fun GiveFeedbackTopBar(navController: NavController) {
+fun TwoPaneNavScope.GiveFeedbackTopBar(navHostController: NavHostController) {
     TopAppBar(
         title = { Text(stringResource(id = R.string.give_feedback_nav)) },
         navigationIcon = {
-            IconButton(onClick = { /*TODO navigate back to my feedback page*/ navController.navigate("home") }) {
+            IconButton(onClick = { /*TODO navigate back to my feedback page*/ navHostController.navigateTo(
+                "home",
+                    Screen.Pane1
+            )
+            }) {
                 Icon(Icons.Filled.ArrowBack, contentDescription = null)
             }
         },

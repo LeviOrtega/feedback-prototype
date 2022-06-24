@@ -34,25 +34,25 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.feedback.R
 
 var signedInBefore: Boolean by (mutableStateOf(true))
 
 
 @Composable
-fun LoginPageFull(navController: NavController) {
+fun LoginPageFull(navHostController: NavHostController) {
     Scaffold(
         content = { LoginContentFull() },
-        bottomBar = { LoginBottomBar(navController = navController) }
+        bottomBar = { LoginBottomBar(navHostController = navHostController) }
     )
 }
 
 @Composable
-fun LoginPageHalf(navController: NavController) {
+fun LoginPageHalf(navHostController: NavHostController) {
     Scaffold(
         content = { LoginContentHalf() },
-        bottomBar = { LoginBottomBar(navController = navController) }
+        bottomBar = { LoginBottomBar(navHostController = navHostController) }
     )
 }
 
@@ -86,7 +86,7 @@ fun LoginContentFull() {
 }
 
 @Composable
-fun LoginBottomBar(navController: NavController) {
+fun LoginBottomBar(navHostController: NavHostController) {
     Column {
         if (signedInBefore) {
             LoginSignInChoices(
@@ -117,7 +117,7 @@ fun LoginBottomBar(navController: NavController) {
                     .align(Alignment.CenterEnd)
                     .width(70.dp)
                     .height(40.dp),
-                onClick = {/*TODO navigate to FRE*/ navController.navigate("fre") },
+                onClick = {/*TODO navigate to FRE*/ navHostController.navigate("fre") },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
                 border = BorderStroke(1.dp, MaterialTheme.colors.onBackground)
             ) {

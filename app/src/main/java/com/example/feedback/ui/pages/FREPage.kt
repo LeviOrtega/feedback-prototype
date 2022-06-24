@@ -21,28 +21,28 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.feedback.R
 
 
 @Composable
-fun FREPageFull(navController: NavController) {
+fun FREPageFull(navHostController: NavHostController) {
     Scaffold(
-        content = { FREContentFull(navController) },
-        bottomBar = { FREBottomBar(navController = navController) }
+        content = { FREContentFull(navHostController) },
+        bottomBar = { FREBottomBar(navHostController = navHostController) }
     )
 }
 
 @Composable
-fun FREPageHalf(navController: NavController) {
+fun FREPageHalf(navHostController: NavHostController) {
     Scaffold(
-        content = { FREContentHalf(navController) },
-        bottomBar = { FREBottomBar(navController = navController) }
+        content = { FREContentHalf(navHostController) },
+        bottomBar = { FREBottomBar(navHostController = navHostController) }
     )
 }
 
 @Composable
-fun FREContentHalf(navController: NavController) {
+fun FREContentHalf(navHostController: NavHostController) {
     Box(Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
@@ -51,7 +51,7 @@ fun FREContentHalf(navController: NavController) {
         ) {
             AppDisclaimer()
             Box(Modifier.fillMaxWidth()) {
-                PrivacyPolicyButton(Modifier.align(Alignment.Center), navController )
+                PrivacyPolicyButton(Modifier.align(Alignment.Center), navHostController )
             }
 
         }
@@ -60,7 +60,7 @@ fun FREContentHalf(navController: NavController) {
 }
 
 @Composable
-fun FREContentFull(navController: NavController) {
+fun FREContentFull(navHostController: NavHostController) {
     Box(Modifier.fillMaxSize()) {
         Column(
             Modifier
@@ -73,14 +73,14 @@ fun FREContentFull(navController: NavController) {
             FRELogo(Modifier.fillMaxWidth())
             AppDisclaimer(Modifier.fillMaxWidth())
             Box(Modifier.fillMaxWidth()) {
-                PrivacyPolicyButton(Modifier.align(Alignment.Center), navController)
+                PrivacyPolicyButton(Modifier.align(Alignment.Center), navHostController)
             }
         }
     }
 }
 
 @Composable
-fun FREBottomBar(navController: NavController) {
+fun FREBottomBar(navHostController: NavHostController) {
     Column {
         Divider(
             color = MaterialTheme.colors.surface,
@@ -94,7 +94,7 @@ fun FREBottomBar(navController: NavController) {
             OutlinedButton(
                 modifier = Modifier
                     .align(Alignment.CenterEnd),
-                onClick = {/*TODO navigate to feedback*/ navController.navigate("feedback") },
+                onClick = {/*TODO navigate to feedback*/ navHostController.navigate("feedback") },
                 colors = ButtonDefaults.buttonColors(contentColor = MaterialTheme.colors.onSurface),
             ) {
                 Text(stringResource(id = R.string.accept))

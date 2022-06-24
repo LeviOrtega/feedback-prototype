@@ -36,27 +36,30 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.feedback.R
 import com.example.feedback.ui.theme.FeedbackTheme
+import com.microsoft.device.dualscreen.twopanelayout.Screen
+import com.microsoft.device.dualscreen.twopanelayout.TwoPaneNavScope
 
 
 var toggle: Boolean by (mutableStateOf(false))
 
 @Composable
-fun MyFeedbackPage(navController: NavController, openDrawer: () -> Unit) {
+fun TwoPaneNavScope.MyFeedbackPage(navHostController: NavHostController, openDrawer: () -> Unit) {
     Scaffold(
         topBar = { MyFeedbackTopBar(openDrawer) },
-        content = { MyFeedbackContent(navController) },
-        floatingActionButton = { AddFeedbackFloatingButton(navController) }
+        content = { MyFeedbackContent(navHostController) },
+        floatingActionButton = { AddFeedbackFloatingButton(navHostController) }
     )
 }
 
+
 @Composable
-fun AddFeedbackFloatingButton(navController: NavController) {
+fun TwoPaneNavScope.AddFeedbackFloatingButton(navHostController: NavHostController) {
     Button(
-        onClick = { /*TODO Navigate to new feedback */ navController.navigate("give") },
+        onClick = { /*TODO Navigate to new feedback */ navHostController.navigateTo("give", Screen.Pane2) },
         shape = MaterialTheme.shapes.large,
         modifier = Modifier.size(65.dp)
     ) {
@@ -149,23 +152,23 @@ fun FeedbackToggleButtons(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MyFeedbackContent(navController: NavController) {
+fun TwoPaneNavScope.MyFeedbackContent(navHostController: NavHostController) {
     if (toggle) {
-        LatestFeedbackList(navController)
+        LatestFeedbackList(navHostController)
     } else {
-        MyFeedbackList(navController)
+        MyFeedbackList(navHostController)
     }
 }
 
 @Composable
-fun MyFeedbackList(navController: NavController) {
+fun TwoPaneNavScope.MyFeedbackList(navHostController: NavHostController) {
     LazyColumn(Modifier.padding(start = 10.dp, end = 10.dp, top = 15.dp)) {
         items(15) { index ->
             FeedbackSummaryButton(
                 modifier = Modifier
                     .padding(bottom = 5.dp)
                     .fillMaxWidth()
-                    .clickable { /*TODO Navigate to feedback using Index */ navController.navigate("detail") },
+                    .clickable { /*TODO Navigate to feedback using Index */ navHostController.navigateTo("detail", Screen.Pane2) },
                 titleID = R.string.fragment_title,
                 descriptionID = R.string.fragment_description,
                 imageID = R.drawable.add_media
@@ -175,14 +178,14 @@ fun MyFeedbackList(navController: NavController) {
 }
 
 @Composable
-fun LatestFeedbackList(navController: NavController) {
+fun TwoPaneNavScope.LatestFeedbackList(navHostController: NavHostController) {
     LazyColumn(Modifier.padding(start = 10.dp, end = 10.dp, top = 15.dp)) {
         items(2) { index ->
             FeedbackSummaryButton(
                 modifier = Modifier
                     .padding(bottom = 5.dp)
                     .fillMaxWidth()
-                    .clickable { /*TODO Navigate to feedback using Index */ navController.navigate("detail") },
+                    .clickable { /*TODO Navigate to feedback using Index */ navHostController.navigateTo("detail", Screen.Pane2) },
                 titleID = R.string.fragment_title,
                 descriptionID = R.string.fragment_description,
                 imageID = R.drawable.add_media
@@ -229,9 +232,9 @@ fun FeedbackSummaryButton(
 
 @Composable
 @Preview
-fun PreviewMyFeedbackPage() {
+fun TwoPaneNavScope.PreviewMyFeedbackPage() {
     FeedbackTheme {
-        MyFeedbackPage(navController = rememberNavController(), {})
+        MyFeedbackPage(navHostController = rememberNavController(), {})
     }
 }
 

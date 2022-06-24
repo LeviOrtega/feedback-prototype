@@ -1,32 +1,32 @@
 package com.example.feedback.ui.pages.navcontrollers
 
-import androidx.compose.material.DrawerValue
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
-import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.feedback.ui.pages.DetailPage
 import com.example.feedback.ui.pages.GiveFeedbackPage
 import com.example.feedback.ui.pages.MyFeedbackPage
-import com.example.feedback.ui.pages.PrivacyStatementPage
-import com.example.feedback.ui.pages.TermsPage
 import com.microsoft.device.dualscreen.twopanelayout.Destination
-import com.microsoft.device.dualscreen.twopanelayout.TwoPaneLayout
 import com.microsoft.device.dualscreen.twopanelayout.TwoPaneLayoutNav
-import com.microsoft.device.dualscreen.twopanelayout.TwoPaneMode
-import com.microsoft.device.dualscreen.twopanelayout.TwoPaneNavScope
 
 @Composable
-fun MyFeedbackNav(navController: NavController, openDrawer: () -> Unit) {
-
-        TwoPaneLayout(
-        paneMode = TwoPaneMode.HorizontalSingle,
-        pane1 = {
-            MyFeedbackPage(navController, openDrawer)
+fun MyFeedbackNav(openDrawer: () -> Unit) {
+    val navHostController = rememberNavController()
+    val destinations = arrayOf(
+        Destination("home") {
+            MyFeedbackPage(
+                navHostController
+            ) { openDrawer() }
         },
-        pane2 = {
-            GiveFeedbackPage(navController)
-        }
+        Destination("give") { GiveFeedbackPage(navHostController) },
+        Destination("detail") { DetailPage(navHostController) },
+    )
+
+    TwoPaneLayoutNav(
+        navController = navHostController,
+        destinations = destinations,
+        singlePaneStartDestination = "home",
+        pane1StartDestination = "home",
+        pane2StartDestination = "give"
     )
 
 

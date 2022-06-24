@@ -37,15 +37,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.feedback.R
 import com.example.feedback.ui.theme.FeedbackTheme
+import com.microsoft.device.dualscreen.twopanelayout.Screen
+import com.microsoft.device.dualscreen.twopanelayout.TwoPaneNavScope
 
 @Composable
-fun DetailPage(navController: NavController) {
+fun TwoPaneNavScope.DetailPage(navHostController: NavHostController) {
     Scaffold(
-        topBar = { DetailTopBar(navController) },
+        topBar = { DetailTopBar(navHostController) },
         content = { DetailContent() },
 
         )
@@ -53,12 +55,13 @@ fun DetailPage(navController: NavController) {
 
 
 @Composable
-fun DetailTopBar(navController: NavController) {
+fun TwoPaneNavScope.DetailTopBar(navHostController: NavHostController) {
     TopAppBar(
         title = { Text(stringResource(id = R.string.bug_details)) },
         navigationIcon = {
-            IconButton(onClick = { /*TODO navigate back to my feedback page*/ navController.navigate(
-                "feedback"
+            IconButton(onClick = { /*TODO navigate back to my feedback page*/ navHostController.navigateTo(
+                "home",
+                        Screen.Pane1
             )
             }) {
                 Icon(Icons.Filled.ArrowBack, contentDescription = null)
@@ -249,8 +252,8 @@ fun DetailPageDetails() {
 
 @Preview
 @Composable
-fun PreviewDetailPage() {
+fun TwoPaneNavScope.PreviewDetailPage() {
     FeedbackTheme {
-        DetailPage(navController = rememberNavController())
+        DetailPage(navHostController = rememberNavController())
     }
 }

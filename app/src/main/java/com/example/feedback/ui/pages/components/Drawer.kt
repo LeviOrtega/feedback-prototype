@@ -24,11 +24,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.feedback.R
 import com.example.feedback.ui.pages.PersonIcon
 import com.example.feedback.ui.theme.customShape
+import com.microsoft.device.dualscreen.twopanelayout.Screen
+import com.microsoft.device.dualscreen.twopanelayout.TwoPaneNavScope
 import kotlinx.coroutines.launch
 
 
@@ -37,7 +39,7 @@ class DrawerScreens(val title: String, val route: String) {}
 @Composable
 private fun screens(): List<DrawerScreens> {
     return listOf(
-        DrawerScreens(stringResource(id = R.string.home), "feedback"),
+        DrawerScreens(stringResource(id = R.string.home), "home"),
         DrawerScreens(stringResource(id = R.string.privacy_statement), "privacy"),
         DrawerScreens(stringResource(id = R.string.terms_of_use), "terms"),
         DrawerScreens(stringResource(id = R.string.sign_in), "login"),
@@ -48,11 +50,20 @@ private fun screens(): List<DrawerScreens> {
 @Composable
 fun DrawerWrapper(
     drawerContent: @Composable () -> Unit,
-    navController: NavController,
+    navHostController: NavHostController,
     drawerState: DrawerState,
     updateDrawerState: (DrawerValue) -> Unit,
 ) {
-    val homeScreen = "feedback"
+    val homeScreen = "home"
+
+    val navigate: (String) -> Unit = { route ->
+        navHostController.navigate(route) {
+            popUpTo(homeScreen)
+            launchSingleTop = true
+        }
+    }
+
+
 
     // ModalDrawer does not have a way to set its size manually, so you have to do it by setting its shape. Shapes don't take DP, only floats, so we do manual conversion here
     val configuration = LocalConfiguration.current
@@ -70,12 +81,9 @@ fun DrawerWrapper(
             Drawer(
                 onDestinationClicked = { route: String ->
                     updateDrawerState(DrawerValue.Closed)
-                    navController.navigate(route) {
-                        popUpTo(homeScreen)
-                        launchSingleTop = true
-                    }
+                    navigate(route)
                 },
-                navController = navController
+                navHostController = navHostController
             )
         }
     ) {
@@ -87,7 +95,7 @@ fun DrawerWrapper(
 fun Drawer(
     modifier: Modifier = Modifier,
     onDestinationClicked: (route: String) -> Unit,
-    navController: NavController
+    navHostController: NavHostController
 
 ) {
 

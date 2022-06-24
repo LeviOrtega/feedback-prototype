@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.feedback.ui.pages.FRELogo
 import com.example.feedback.ui.pages.FREPageFull
 import com.example.feedback.ui.pages.FREPageHalf
@@ -16,7 +16,7 @@ import com.microsoft.device.dualscreen.twopanelayout.TwoPaneLayout
 import com.microsoft.device.dualscreen.windowstate.WindowState
 
 @Composable
-fun FRENav(navController: NavController, windowState: WindowState) {
+fun FRENav(navHostController: NavHostController, windowState: WindowState) {
     TwoPaneLayout(
         pane1 = {
             if (windowState.isDualScreen()) {
@@ -24,11 +24,11 @@ fun FRENav(navController: NavController, windowState: WindowState) {
                     FRELogo(Modifier.align(Alignment.Center))
                 }
             } else {
-                FREPageFull(navController = navController)
+                FREPageFull(navHostController = navHostController)
             }
         },
         pane2 = {
-            FREPageHalf(navController = navController)
+            FREPageHalf(navHostController = navHostController)
         }
     )
 }
